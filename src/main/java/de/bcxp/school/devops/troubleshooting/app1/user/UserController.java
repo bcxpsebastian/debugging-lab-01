@@ -1,4 +1,4 @@
-package de.bcxp.school.devops.troubleshooting.demo1.user;
+package de.bcxp.school.devops.troubleshooting.app1.user;
 // UserController.java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

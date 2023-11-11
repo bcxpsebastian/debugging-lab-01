@@ -1,4 +1,4 @@
-package de.bcxp.school.devops.troubleshooting.demo1.user;
+package de.bcxp.school.devops.troubleshooting.app1.user;
 // UserDatabase.java
 import java.util.ArrayList;
 import java.util.List;

@@ -1,41 +1,33 @@
-package de.bcxp.school.devops.troubleshooting.demo2;
-// DemoApplication2.java
+package de.bcxp.school.devops.troubleshooting.app2;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.bcxp.school.devops.troubleshooting.common.UserData;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
-@SpringBootApplication
+@Component
 @EnableScheduling
-public class DemoApplication2 {
+public class UserDataPoller {
 
-    public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(DemoApplication2.class);
-        app.setDefaultProperties(Collections.singletonMap("server.port", "8081"));
-        app.run(args);
-    }
+    private final RestTemplate restTemplate;
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
+    public UserDataPoller() {
+        this.restTemplate = new RestTemplate();
     }
 
     @Scheduled(fixedRate = 10000) // Poll every 10 seconds
     public void pollUserData() {
         String userDataUrl = "http://localhost:8080/users"; // URL of the first Spring Boot app
-        ResponseEntity<String> responseEntity = restTemplate().getForEntity(userDataUrl, String.class);
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(userDataUrl, String.class);
 
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             String responseBody = responseEntity.getBody();
