@@ -29,8 +29,7 @@ public class UserController {
     public String submitForm(@RequestParam String name, @RequestParam String birthday) {
         UserData userData = new UserData(name, birthday);
         userDatabase.addUser(userData);
-        System.out.println("Received data: " + userData);
         // Redirect to the index page after form submission
-        return "redirect:/";
+        return "index";
     }
 }
