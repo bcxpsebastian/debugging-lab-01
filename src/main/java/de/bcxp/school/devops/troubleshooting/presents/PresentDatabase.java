@@ -14,8 +14,8 @@ public class PresentDatabase {
         this.presentDataList = new ArrayList<>();
     }
 
-    public void setPresentData(List<PresentData> presentData) {
-        presentDataList = presentData;
+    public void addPresentData(PresentData presentData) {
+        presentDataList.add(presentData);
     }
 
     public List<PresentData> getAllPresentData() {

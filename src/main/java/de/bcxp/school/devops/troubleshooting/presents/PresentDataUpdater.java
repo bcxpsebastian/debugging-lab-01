@@ -1,8 +1,6 @@
 package de.bcxp.school.devops.troubleshooting.presents;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -31,13 +29,14 @@ public class PresentDataUpdater {
         PresentData[] presentDataArray = restTemplate.getForObject(behaviorDataEndpoint, PresentData[].class);
 
         if (presentDataArray != null) {
-            List<PresentData> presentList = new ArrayList<PresentData>();
             for (PresentData presentData : presentDataArray) {
+                if (presentDatabase.getAllPresentData().stream().anyMatch(p -> p.getName().equals(presentData.getName()))) {
+                    continue;
+                }
                 // Update presents in Storage based on numPresents
                 updateStoragePresents(presentData);
-                presentList.add(presentData);
+                presentDatabase.addPresentData(presentData);
             }
-            presentDatabase.setPresentData(presentList);
         }
     }
 
