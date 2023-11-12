@@ -1,5 +1,4 @@
-package de.bcxp.school.devops.troubleshooting.app1.user;
-// UserController.java
+package de.bcxp.school.devops.troubleshooting.children;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -8,27 +7,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import de.bcxp.school.devops.troubleshooting.common.UserData;
+import de.bcxp.school.devops.troubleshooting.common.ChildData;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/children")
+public class ChildController {
 
     @Autowired
-    private UserDatabase userDatabase;
+    private ChildDatabase childDatabase;
 
     @GetMapping
-    public ResponseEntity<List<UserData>> getAllUsers() {
-        List<UserData> users = userDatabase.getAllUsers();
-        return ResponseEntity.ok(users);
+    public ResponseEntity<List<ChildData>> getAllChildren() {
+        List<ChildData> children = childDatabase.getAllChildren();
+        return ResponseEntity.ok(children);
     }
 
     @PostMapping("/submitForm")
     public String submitForm(@RequestParam String name, @RequestParam String birthday) {
-        UserData userData = new UserData(name, birthday);
-        userDatabase.addUser(userData);
+        ChildData childData = new ChildData(name, birthday);
+        childDatabase.addChild(childData);
         // Redirect to the index page after form submission
         return "index";
     }

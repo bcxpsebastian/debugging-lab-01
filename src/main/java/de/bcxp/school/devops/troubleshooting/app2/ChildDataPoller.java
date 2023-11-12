@@ -2,7 +2,7 @@ package de.bcxp.school.devops.troubleshooting.app2;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.bcxp.school.devops.troubleshooting.common.UserData;
+import de.bcxp.school.devops.troubleshooting.common.ChildData;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -15,35 +15,35 @@ import java.util.List;
 
 @Component
 @EnableScheduling
-public class UserDataPoller {
+public class ChildDataPoller {
 
     private final RestTemplate restTemplate;
 
-    public UserDataPoller() {
+    public ChildDataPoller() {
         this.restTemplate = new RestTemplate();
     }
 
     @Scheduled(fixedRate = 10000) // Poll every 10 seconds
-    public void pollUserData() {
-        String userDataUrl = "http://localhost:8080/users"; // URL of the first Spring Boot app
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity(userDataUrl, String.class);
+    public void pollChildrenData() {
+        String childDataUrl = "http://localhost:8080/children"; // URL of the first Spring Boot app
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(childDataUrl, String.class);
 
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             String responseBody = responseEntity.getBody();
 
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
-                List<UserData> users = objectMapper.readValue(responseBody, new TypeReference<List<UserData>>() {});
+                List<ChildData> children = objectMapper.readValue(responseBody, new TypeReference<List<ChildData>>() {});
 
-                System.out.println("List of Users from http://localhost:8080/users:");
-                for (UserData user : users) {
-                    System.out.println(user);
+                System.out.println("List of children from http://localhost:8080/children:");
+                for (ChildData child : children) {
+                    System.out.println(child);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Failed to retrieve users from http://localhost:8080/users. Status code: " + responseEntity.getStatusCode());
+            System.out.println("Failed to retrieve children from http://localhost:8080/children. Status code: " + responseEntity.getStatusCode());
         }
     }
 }
