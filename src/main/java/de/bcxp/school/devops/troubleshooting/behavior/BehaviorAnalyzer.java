@@ -39,11 +39,6 @@ public class BehaviorAnalyzer {
 
                 // Update the behavior data in the database
                 behaviorDatabase.updateBehaviorData(children);
-
-                System.out.println("List of children from http://localhost:8080/children:");
-                for (BehaviorData child : behaviorDatabase.getAllBehaviorData()) {
-                    System.out.println(child);
-                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -28,7 +28,6 @@ public class OrderDataUpdater {
         // Save OrderData to the OrderDatabase
         if (orderDataArray != null) {
             for (OrderData orderData : orderDataArray) {
-                System.out.println(orderData);
                 orderDatabase.addOrderData(orderData);
             }
         }
