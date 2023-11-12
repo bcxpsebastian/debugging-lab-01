@@ -12,7 +12,7 @@ public class ChristmasPresentGenerator {
 
     private static final Random random = new Random();
 
-    public static String generatePresentName() {
+    public String generatePresentName() {
         String adjective = getRandomElement(ADJECTIVES);
         String noun = getRandomElement(NOUNS);
         return adjective + " " + noun;
@@ -23,7 +23,4 @@ public class ChristmasPresentGenerator {
         return array[index];
     }
 
-    public static void main(String[] args) {
-        System.out.println("Present: " + generatePresentName());
-    }
 }
