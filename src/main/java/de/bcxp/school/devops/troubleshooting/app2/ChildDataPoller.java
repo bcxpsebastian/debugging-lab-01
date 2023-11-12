@@ -2,7 +2,6 @@ package de.bcxp.school.devops.troubleshooting.app2;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.bcxp.school.devops.troubleshooting.common.ChildData;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;

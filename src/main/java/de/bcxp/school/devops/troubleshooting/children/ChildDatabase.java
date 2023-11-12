@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import de.bcxp.school.devops.troubleshooting.common.ChildData;
-
 @Service
 public class ChildDatabase {
 
