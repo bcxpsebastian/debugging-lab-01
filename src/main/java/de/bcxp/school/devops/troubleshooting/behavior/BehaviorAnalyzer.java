@@ -2,7 +2,7 @@ package de.bcxp.school.devops.troubleshooting.behavior;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,9 +17,12 @@ import java.util.List;
 public class BehaviorAnalyzer {
 
     private final RestTemplate restTemplate;
+    private final BehaviorDatabase behaviorDatabase;
 
-    public BehaviorAnalyzer() {
+    @Autowired
+    public BehaviorAnalyzer(BehaviorDatabase behaviorDatabase) {
         this.restTemplate = new RestTemplate();
+        this.behaviorDatabase = behaviorDatabase;
     }
 
     @Scheduled(fixedRate = 10000) // Poll every 10 seconds
@@ -34,8 +37,11 @@ public class BehaviorAnalyzer {
                 ObjectMapper objectMapper = new ObjectMapper();
                 List<BehaviorData> children = objectMapper.readValue(responseBody, new TypeReference<List<BehaviorData>>() {});
 
+                // Update the behavior data in the database
+                behaviorDatabase.updateBehaviorData(children);
+
                 System.out.println("List of children from http://localhost:8080/children:");
-                for (BehaviorData child : children) {
+                for (BehaviorData child : behaviorDatabase.getAllBehaviorData()) {
                     System.out.println(child);
                 }
             } catch (IOException e) {

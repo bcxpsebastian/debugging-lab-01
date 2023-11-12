@@ -10,14 +10,18 @@ public class BehaviorData {
     @JsonProperty("behavior")
     private Behavior behavior;
 
+    @JsonProperty("num_presents")
+    private int numPresents;
+
     // Empty constructor
     public BehaviorData() {
     }
 
-    // Constructor with name and behavior
-    public BehaviorData(String name, Behavior behavior) {
+    // Constructor with name, behavior, and numPresents
+    public BehaviorData(String name, Behavior behavior, int numPresents) {
         this.name = name;
         this.behavior = behavior;
+        this.numPresents = numPresents;
     }
 
     // Property setters
@@ -29,13 +33,22 @@ public class BehaviorData {
         this.behavior = behavior;
     }
 
+    public void setNumPresents(int numPresents) {
+        this.numPresents = numPresents;
+    }
+
     // Constructors, getters, and toString method...
 
     @Override
     public String toString() {
-        return "ChildData{" +
+        return "BehaviorData{" +
                 "name='" + name + '\'' +
                 ", behavior=" + behavior +
+                ", numPresents=" + numPresents +
                 '}';
+    }
+
+    public Behavior getBehavior() {
+        return behavior;
     }
 }
