@@ -53,29 +53,115 @@
         button:hover {
             background-color: #45a049;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+
     </style>
 </head>
 <body>
 
-    <form action="/children/submitForm" method="post">
-        <h2 style="text-align: center;">Children Form</h2>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
-        <label for="behavior">Behavior:</label>
-        <select id="behavior" name="behavior" required>
-            <option value="VERY_NAUGHTY">Very Naughty</option>
-            <option value="NAUGHTY">Naughty</option>
-            <option value="NEUTRAL">Neutral</option>
-            <option value="NICE">Nice</option>
-            <option value="VERY_NICE">Very Nice</option>
-        </select>
-        <br>
-        <button type="submit">Submit</button>
-    </form>
+    <div id="content-container">
+        <form action="/children/submitForm" method="post">
+            <h2 style="text-align: center;">Children Form</h2>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <br>
+            <label for="behavior">Behavior:</label>
+            <select id="behavior" name="behavior" required>
+                <option value="VERY_NAUGHTY">Very Naughty</option>
+                <option value="NAUGHTY">Naughty</option>
+                <option value="NEUTRAL">Neutral</option>
+                <option value="NICE">Nice</option>
+                <option value="VERY_NICE">Very Nice</option>
+            </select>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+
+   
+        <div id="presentDataContainer">
+            <!-- The table will be dynamically populated here -->
+        </div>
+
+        <div id="countdown"></div>
+
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Function to fetch and update present data
+            function updatePresentData() {
+                // Clear existing content
+                $("#presentDataContainer").empty();
+
+                // Fetch data
+                $.get("/api/presentdata", function (data) {
+                    // Create a table and append it to the presentDataContainer
+                    var table = $("<table>").appendTo("#presentDataContainer");
+
+                    // Add table headers
+                    var headerRow = $("<tr>").appendTo(table);
+                    headerRow.append("<th>Name</th>");
+                    headerRow.append("<th>Presents</th>");
+
+                    // Add data rows
+                    data.forEach(function (presentData) {
+                        var row = $("<tr>").appendTo(table);
+                        row.append("<td>" + presentData.full_name + "</td>");
+                        row.append("<td>" + presentData.presents.join(", ") + "</td>");
+                    });
+                });
+            }
+
+            // Function to update the countdown
+            function updateCountdown(seconds) {
+                $("#countdown").text("Next update in " + seconds + " seconds");
+            }
+
+            // Initial update
+            updatePresentData();
+
+            // Set interval to update every 10 seconds
+            var updateInterval = 1000;
+            var n = 0;
+            setInterval(function () {
+                // Calculate the time until the next update
+                var countdown = (10 - n) * updateInterval / 1000;
+                updateCountdown(countdown);
+
+                // Update present data
+                if (n < 10) {
+                    n++;
+                } else {
+                    updatePresentData();
+                    n = 0;
+                }
+            }, updateInterval);
+        });
+    </script>
+
     <script>
         window.history.pushState('', '', '/');
     </script>
 
 </body>
 </html>
+
+
