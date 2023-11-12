@@ -18,11 +18,17 @@
             height: 100vh;
         }
 
+        #content-container {
+            max-width: 800px; /* Set max width for better readability */
+            margin: auto; /* Center content */
+        }
+
         form {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Add margin at the bottom for separation */
         }
 
         label {
@@ -71,6 +77,11 @@
             color: white;
         }
 
+        #countdown {
+            margin-top: 20px; /* Add margin at the top for separation */
+            font-size: 18px; /* Increase font size for better visibility */
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -93,7 +104,6 @@
             <button type="submit">Submit</button>
         </form>
 
-   
         <div id="presentDataContainer">
             <!-- The table will be dynamically populated here -->
         </div>
@@ -101,7 +111,6 @@
         <div id="countdown"></div>
 
     </div>
-
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
@@ -163,5 +172,3 @@
 
 </body>
 </html>
-
-
