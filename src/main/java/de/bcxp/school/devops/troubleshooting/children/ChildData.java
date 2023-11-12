@@ -2,8 +2,6 @@ package de.bcxp.school.devops.troubleshooting.children;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import de.bcxp.school.devops.troubleshooting.common.Behavior;
-
 public class ChildData {
 
     @JsonProperty("full_name")

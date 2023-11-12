@@ -1,10 +1,8 @@
-package de.bcxp.school.devops.troubleshooting.app2;
+package de.bcxp.school.devops.troubleshooting.behavior;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import de.bcxp.school.devops.troubleshooting.common.Behavior;
-
-public class ChildData {
+public class BehaviorData {
 
     @JsonProperty("full_name")
     private String name;
@@ -13,11 +11,11 @@ public class ChildData {
     private Behavior behavior;
 
     // Empty constructor
-    public ChildData() {
+    public BehaviorData() {
     }
 
     // Constructor with name and behavior
-    public ChildData(String name, Behavior behavior) {
+    public BehaviorData(String name, Behavior behavior) {
         this.name = name;
         this.behavior = behavior;
     }

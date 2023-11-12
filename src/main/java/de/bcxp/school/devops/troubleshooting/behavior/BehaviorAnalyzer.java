@@ -1,4 +1,4 @@
-package de.bcxp.school.devops.troubleshooting.app2;
+package de.bcxp.school.devops.troubleshooting.behavior;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,11 +14,11 @@ import java.util.List;
 
 @Component
 @EnableScheduling
-public class ChildDataPoller {
+public class BehaviorAnalyzer {
 
     private final RestTemplate restTemplate;
 
-    public ChildDataPoller() {
+    public BehaviorAnalyzer() {
         this.restTemplate = new RestTemplate();
     }
 
@@ -32,10 +32,10 @@ public class ChildDataPoller {
 
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
-                List<ChildData> children = objectMapper.readValue(responseBody, new TypeReference<List<ChildData>>() {});
+                List<BehaviorData> children = objectMapper.readValue(responseBody, new TypeReference<List<BehaviorData>>() {});
 
                 System.out.println("List of children from http://localhost:8080/children:");
-                for (ChildData child : children) {
+                for (BehaviorData child : children) {
                     System.out.println(child);
                 }
             } catch (IOException e) {
