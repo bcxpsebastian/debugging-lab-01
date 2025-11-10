@@ -7,7 +7,10 @@
                 "vscjava.vscode-java-pack"
             ],
             "settings": {
-                "java.server.launchMode": "Standard"
+                "github.copilot.enable": false,
+                "github.copilot.inlineSuggest.enable": false,
+                "extensions.ignoreRecommendations": true,
+                "workbench.enableExperiments": false
             }
         }
     },
